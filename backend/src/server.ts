@@ -16,6 +16,8 @@ app.get('/', (req, res) => {
   res.send('Welcome to Kalinga Baby app.')
 });
 
+app.use('/api/foods', foodRoutes)
+
 mongoose.connect(process.env.MONGO_URI!)
   .then(() => {
     console.log('MongoDB connected');
