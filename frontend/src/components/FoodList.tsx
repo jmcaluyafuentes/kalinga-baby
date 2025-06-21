@@ -49,7 +49,7 @@ const FoodList = ({ entries, loading, date, onDelete }: FoodListProps) => {
   }
 
   return (
-    <Paper elevation={2} sx={{ p: 4, maxWidth: 480, mx: 'auto', mt: 4 }}>
+    <Paper elevation={2} sx={{ p: 4, maxWidth: 480, mx: 'auto', mt: 4, mb: 4 }}>
       <Typography variant="h6" gutterBottom>
         Today's Food Intake ({date})
       </Typography>
