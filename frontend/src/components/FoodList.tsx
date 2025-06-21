@@ -6,8 +6,12 @@ import {
   ListItemText,
   Divider,
   Box,
-  CircularProgress
+  CircularProgress,
+  IconButton,
+  Tooltip
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 type FoodEntry = {
   _id: string;
@@ -21,10 +25,20 @@ type FoodEntry = {
 type FoodListProps = {
   entries: FoodEntry[];
   loading: boolean;
-  today: string
+  today: string;
+  onDelete: () => void;
 };
 
-const FoodList = ({ entries, loading, today }: FoodListProps) => {
+const FoodList = ({ entries, loading, today, onDelete }: FoodListProps) => {
+
+  const handleDelete = async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/foods/${id}`);
+      onDelete(); //re-fetch entries
+    } catch (err) {
+      console.error('Failed to delete entry', err);
+    }
+  }
 
   if (loading) {
     return (
@@ -48,7 +62,15 @@ const FoodList = ({ entries, loading, today }: FoodListProps) => {
         <List>
           {entries.map((entry) => (
             <Box key={entry._id}>
-              <ListItem alignItems="flex-start">
+              <ListItem
+                secondaryAction={
+                  <Tooltip title="Delete">
+                    <IconButton edge="end" onClick={() => handleDelete(entry._id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                }
+              >
                 <ListItemText
                   primary={`${entry.time} — ${entry.food} (${entry.quantity})`}
                   secondary={entry.notes}

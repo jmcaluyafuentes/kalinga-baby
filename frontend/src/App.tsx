@@ -37,7 +37,7 @@ function App() {
   return (
     <Container>
       <FoodForm onEntrySaved={fetchEntries} />
-      <FoodList entries={entries} loading={loading} today={today}/>
+      <FoodList entries={entries} loading={loading} today={today} onDelete={fetchEntries}/>
     </Container>
   )
 }
