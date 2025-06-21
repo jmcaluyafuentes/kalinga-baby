@@ -60,3 +60,12 @@ export const getEntriesAll = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Failed to fetch entries.', error: err })
   }
 }
+
+export const deleteEntry = async (req: Request, res: Response) => {
+  try {
+    await Food.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Entry deleted' });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to delete' });
+  }
+}
