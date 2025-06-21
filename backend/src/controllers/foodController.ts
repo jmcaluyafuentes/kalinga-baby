@@ -51,3 +51,12 @@ export const getEntriesBetweenDates = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Failed to fetch entries between dates.', error: err });
   }
 }
+
+export const getEntriesAll = async (req: Request, res: Response) => {
+  try {
+    const entries = await Food.find({});
+    res.status(200).json(entries);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch entries.', error: err })
+  }
+}
