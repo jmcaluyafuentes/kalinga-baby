@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DateInput from './DateInput';
+import TimeInput from './TimeInput';
 import {
   TextField,
   Button,
@@ -25,6 +26,7 @@ const FoodForm = ({ onEntrySaved }: FoodFormProps) => {
     time: "",
     notes: "",
   });
+  const [timeObj, setTimeObj] = useState<Date | null>(null);
   const [successOpen, setSuccessOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -76,12 +78,17 @@ const FoodForm = ({ onEntrySaved }: FoodFormProps) => {
             onChange={handleChange}
             required
           />
-          <TextField
-            label="Time (e.g. 09:00 AM)"
-            name="time"
-            value={form.time}
-            onChange={handleChange}
-            required
+          <TimeInput
+            label="Time"
+            value={timeObj}
+            onChange={(newTime) => {
+              setTimeObj(newTime);
+              if (newTime) {
+                const hours = String(newTime.getHours()).padStart(2, '0');
+                const minutes = String(newTime.getMinutes()).padStart(2, '0');
+                setForm({ ...form, time: `${hours}:${minutes}` });
+              }
+            }}
           />
           <DateInput
             label="Date"
