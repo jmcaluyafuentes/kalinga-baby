@@ -6,6 +6,8 @@ import {
   Typography,
   Paper,
   Stack,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import axios from 'axios';
 
@@ -17,6 +19,7 @@ const FoodForm = () => {
     time: "",
     notes: "",
   });
+  const [open, setOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [e.target.name]: e.target.value});
@@ -29,7 +32,7 @@ const FoodForm = () => {
       const res = await axios.post('http://localhost:3000/api/foods', form);
       
       if(res.status === 201) {
-        alert('Food entry added!');
+        setOpen(true);
       }
 
       setForm({ food: '', quantity: '', time: '', date: '', notes: '' });
@@ -88,6 +91,17 @@ const FoodForm = () => {
           </Button>
         </Stack>
       </Box>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setOpen(false)} severity="success" sx={{ width: '100%' }}>
+          Food entry added successfully!
+        </Alert>
+      </Snackbar>
     </Paper>
   )
 };
