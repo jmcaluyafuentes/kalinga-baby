@@ -18,7 +18,7 @@ const FoodTracker = () => {
     if (!selectedDate) return;
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:3000/api/foods/${formattedDate}`);
+      const res = await axios.get(`https://kalinga-baby-api.onrender.com/api/foods/${formattedDate}`);
       setEntries(res.data);
     } catch (err) {
       console.error(err);

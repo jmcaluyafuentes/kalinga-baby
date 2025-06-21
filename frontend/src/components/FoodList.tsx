@@ -33,7 +33,7 @@ const FoodList = ({ entries, loading, date, onDelete }: FoodListProps) => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:3000/api/foods/${id}`);
+      await axios.delete(`https://kalinga-baby-api.onrender.com/api/foods/${id}`);
       onDelete(); //re-fetch entries
     } catch (err) {
       console.error('Failed to delete entry', err);

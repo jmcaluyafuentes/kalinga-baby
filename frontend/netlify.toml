@@ -1,0 +1,10 @@
+[build]
+  base = "frontend"
+  command = "npm install --include=dev && npm run build"
+  publish = "frontend/dist"
+
+# Redirects for React Router (single page app)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

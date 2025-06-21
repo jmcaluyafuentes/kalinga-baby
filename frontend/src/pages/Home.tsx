@@ -1,5 +1,6 @@
 import Hero from '../components/Hero';
-import { Container, Typography, Grid, Card, CardActionArea, CardContent } from '@mui/material';
+import { Container, Typography, Card, CardActionArea, CardContent } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 
 const features = [
@@ -21,6 +22,7 @@ const Home = () => {
         <Typography variant="h5" gutterBottom>Explore Features</Typography>
         <Grid container spacing={3} mt={2}>
           {features.map(({ title, path }) => (
+            // @ts-ignore
             <Grid item xs={12} sm={6} md={4} key={title}>
               <Card>
                 <CardActionArea component={Link} to={path}>
