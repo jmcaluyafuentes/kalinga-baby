@@ -15,6 +15,7 @@ import { useState } from 'react';
 const navItems = [
   { label: 'Home', path: '/' },
   { label: 'Food Tracker', path: '/food' },
+  { label: 'About', path: '/about' },
 ];
 
 const Navbar = () => {
