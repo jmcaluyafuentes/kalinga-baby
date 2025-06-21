@@ -7,6 +7,7 @@ import {
   Paper,
   Stack,
 } from "@mui/material";
+import axios from 'axios';
 
 const FoodForm = () => {
   const [form, setForm] = useState({
@@ -21,8 +22,21 @@ const FoodForm = () => {
     setForm({...form, [e.target.name]: e.target.value});
   }
 
-  const handleSubmit = () => {
-    alert('Form submitted!')
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post('http://localhost:3000/api/foods', form);
+      
+      if(res.status === 201) {
+        alert('Food entry added!');
+      }
+
+      setForm({ food: '', quantity: '', time: '', date: '', notes: '' });
+    } catch (err) {
+      console.log(err);
+      alert('Error submitting entry!');
+    }
   }
 
   return (
