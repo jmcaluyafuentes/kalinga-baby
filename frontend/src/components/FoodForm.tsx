@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DateInput from './DateInput';
 import {
   TextField,
   Button,
@@ -82,12 +83,15 @@ const FoodForm = ({ onEntrySaved }: FoodFormProps) => {
             onChange={handleChange}
             required
           />
-          <TextField
-            label="Date (YYYY-MM-DD)"
-            name="date"
-            value={form.date}
-            onChange={handleChange}
-            required
+          <DateInput
+            label="Date"
+            value={form.date ? new Date(form.date) : null}
+            onChange={(newDate) => {
+              if (newDate) {
+                const iso = newDate.toISOString().split('T')[0];
+                setForm({ ...form, date: iso });
+              }
+            }}
           />
           <TextField
             label="Notes"

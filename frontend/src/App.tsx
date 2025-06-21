@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import FoodForm from "./components/FoodForm";
 import FoodList from "./components/FoodList";
+import DateInput from './components/DateInput';
 import { Container, Box } from "@mui/material";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import axios from 'axios';
@@ -46,12 +46,7 @@ function App() {
       <Container sx={{ mt: 4 }}>
         <FoodForm onEntrySaved={fetchEntries} />
         <Box sx={{ maxWidth: 480, mx: 'auto', mt: 4 }}>
-          <DatePicker
-            label="Select Date"
-            value={selectedDate}
-            onChange={(newDate) => setSelectedDate(newDate)}
-            slotProps={{ textField: { fullWidth: true } }}
-          />
+          <DateInput value={selectedDate} onChange={setSelectedDate} />
         </Box>
         <FoodList entries={entries} loading={loading} date={formattedDate} onDelete={fetchEntries} />
       </Container>
