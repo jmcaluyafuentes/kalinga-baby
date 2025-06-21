@@ -8,22 +8,37 @@ Starting with a feature to track and summarize a baby’s daily food intake, the
 
 ---
 
-## Features (Planned)
+## Live Demo
+
+You can try the live deployed app here:  
+👉 [https://kalinga-baby.netlify.app/](https://kalinga-baby.netlify.app/)
+
+---
+
+## Features (Implemented)
 
 - Daily food intake logging with time and quantity  
-- Weekly and monthly summaries of foods tried and consumption  
+
+---
+
+## Features (Planned)
+
+- Sleep tracking  
 - Baby milestone tracking  
-- Sleep tracking
 - Health and vaccination logs  
 - Parenting tips and resources  
 - User authentication and personalized profiles
+- Appointment reminders and scheduling  
+- Interactive todo lists for parenting tasks  
+- Blog with commenting and community features  
+- Push notifications and alerts  
 
 ---
 
 ## Tech Stack
 
-- Backend: Node.js, Express, TypeScript, MongoDB
-- Frontend: React, TypeScript, Material UI
+- **Backend:** Node.js, Express, TypeScript, MongoDB  
+- **Frontend:** React, TypeScript, Material UI  
 
 ---
 
@@ -32,4 +47,4 @@ Starting with a feature to track and summarize a baby’s daily food intake, the
 ### Prerequisites
 
 - Node.js (v16 or later recommended)  
-- MongoDB (local or Atlas cluster)
+- MongoDB (local or Atlas cluster)  
