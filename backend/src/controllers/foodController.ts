@@ -2,7 +2,12 @@ import { Request, Response } from 'express';
 import Food from '../models/foodModel';
 
 export const addFoodEntry = async (req: Request, res: Response) => {
+  const { food, quantity, date, time } = req.body;
   try {
+    if (!food || !quantity || !date || !time) {
+      res.status(400).json({ message: 'Missing required fields.' });
+    }
+
     const newEntry = new Food(req.body);
     const savedEntry = await newEntry.save();
     res.status(201).json(savedEntry);
@@ -13,6 +18,9 @@ export const addFoodEntry = async (req: Request, res: Response) => {
 
 export const getEntriesByDate = async (req: Request, res: Response) => {
   const date = req.params.date;
+
+  console.log('Date:', date);
+
 
   try {
     const entries = await Food.find({ date });
@@ -25,6 +33,9 @@ export const getEntriesByDate = async (req: Request, res: Response) => {
 
 export const getEntriesBetweenDates = async (req: Request, res: Response) => {
   const { start, end } = req.query;
+
+  console.log('Start:', start, 'End:', end);
+
 
   if (!start || !end) {
     return res.status(400).json({ message: 'Start and end dates are required.' });

@@ -4,13 +4,8 @@ import { addFoodEntry, getEntriesByDate, getEntriesBetweenDates } from '../contr
 const router = express.Router();
 
 router.post('/', addFoodEntry);
-router.get('/:date', getEntriesByDate);
 // @ts-ignore
 router.get('/range', getEntriesBetweenDates);
-router.get('/range', (req, res) => {
-  console.log('Range route hit');
-  res.json([]);
-});
-
+router.get('/:date', getEntriesByDate);
 
 export default router;
