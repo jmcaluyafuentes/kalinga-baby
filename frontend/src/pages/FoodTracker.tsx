@@ -5,7 +5,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import DateInput from '../components/DateInput';
 import FoodForm from '../components/FoodForm';
 import FoodList from '../components/FoodList';
-import Navbar from '../components/Navbar';
 import axios from 'axios';
 
 const FoodTracker = () => {
@@ -34,7 +33,6 @@ const FoodTracker = () => {
 
   return (
     <>
-      <Navbar />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Container sx={{ mt: 4 }}>
           <FoodForm onEntrySaved={fetchEntries} />
