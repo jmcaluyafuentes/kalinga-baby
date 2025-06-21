@@ -19,7 +19,8 @@ const FoodForm = () => {
     time: "",
     notes: "",
   });
-  const [open, setOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({...form, [e.target.name]: e.target.value});
@@ -32,13 +33,13 @@ const FoodForm = () => {
       const res = await axios.post('http://localhost:3000/api/foods', form);
       
       if(res.status === 201) {
-        setOpen(true);
+        setSuccessOpen(true);
       }
 
       setForm({ food: '', quantity: '', time: '', date: '', notes: '' });
     } catch (err) {
-      console.log(err);
-      alert('Error submitting entry!');
+      console.error(err);
+      setErrorOpen(true);
     }
   }
 
@@ -93,13 +94,24 @@ const FoodForm = () => {
       </Box>
 
       <Snackbar
-        open={open}
+        open={successOpen}
         autoHideDuration={6000}
-        onClose={() => setOpen(false)}
+        onClose={() => setSuccessOpen(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <Alert onClose={() => setOpen(false)} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={() => setSuccessOpen(false)} severity="success" sx={{ width: '100%' }}>
           Food entry added successfully!
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={errorOpen}
+        autoHideDuration={6000}
+        onClose={() => setErrorOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setErrorOpen(false)} severity="error" sx={{ width: '100%' }}>
+          Failed to add food entry. Please try again.
         </Alert>
       </Snackbar>
     </Paper>
