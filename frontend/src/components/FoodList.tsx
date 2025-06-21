@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import {
   Typography,
   Paper,
@@ -8,6 +6,7 @@ import {
   ListItemText,
   Divider,
   Box,
+  CircularProgress
 } from '@mui/material';
 
 type FoodEntry = {
@@ -19,26 +18,21 @@ type FoodEntry = {
   notes?: string;
 };
 
-const FoodList = () => {
-  const [entries, setEntries] = useState<FoodEntry[]>([]);
-  const [loading, setLoading] = useState(true);
+type FoodListProps = {
+  entries: FoodEntry[];
+  loading: boolean;
+  today: string
+};
 
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+const FoodList = ({ entries, loading, today }: FoodListProps) => {
 
-  useEffect(() => {
-    const fetchEntries = async () => {
-      try {
-        const res = await axios.get(`http://localhost:3000/api/foods/${today}`);
-        setEntries(res.data);
-      } catch (err) {
-        console.error('Failed to fetch food entries', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEntries();
-  }, [today]);
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Paper elevation={2} sx={{ p: 4, maxWidth: 480, mx: 'auto', mt: 4 }}>

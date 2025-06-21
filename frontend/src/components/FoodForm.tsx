@@ -12,7 +12,11 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-const FoodForm = () => {
+type FoodFormProps = {
+  onEntrySaved: () => void;
+};
+
+const FoodForm = ({ onEntrySaved }: FoodFormProps) => {
   const [form, setForm] = useState({
     food: "",
     quantity: "",
@@ -37,6 +41,7 @@ const FoodForm = () => {
 
       if (res.status === 201) {
         setSuccessOpen(true);
+        onEntrySaved(); // Refresh list
       }
 
       setForm({ food: "", quantity: "", time: "", date: "", notes: "" });
