@@ -25,11 +25,11 @@ type FoodEntry = {
 type FoodListProps = {
   entries: FoodEntry[];
   loading: boolean;
-  today: string;
+  date: string;
   onDelete: () => void;
 };
 
-const FoodList = ({ entries, loading, today, onDelete }: FoodListProps) => {
+const FoodList = ({ entries, loading, date, onDelete }: FoodListProps) => {
 
   const handleDelete = async (id: string) => {
     try {
@@ -51,7 +51,7 @@ const FoodList = ({ entries, loading, today, onDelete }: FoodListProps) => {
   return (
     <Paper elevation={2} sx={{ p: 4, maxWidth: 480, mx: 'auto', mt: 4 }}>
       <Typography variant="h6" gutterBottom>
-        Today's Food Intake ({today})
+        Today's Food Intake ({date})
       </Typography>
 
       {loading ? (
