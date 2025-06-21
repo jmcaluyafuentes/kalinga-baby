@@ -11,20 +11,32 @@ export const addFoodEntry = async (req: Request, res: Response) => {
   }
 }
 
+export const getEntriesByDate = async (req: Request, res: Response) => {
+  const date = req.params.date;
+
+  try {
+    const entries = await Food.find({ date });
+
+    res.status(200).json(entries);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch entries.', error: err });
+  }
+}
+
 export const getEntriesBetweenDates = async (req: Request, res: Response) => {
   const { start, end } = req.query;
 
   if (!start || !end) {
-    res.status(400).json({ message: 'Start and end dates are required.' });
+    return res.status(400).json({ message: 'Start and end dates are required.' });
   }
 
   try {
     const entries = await Food.find({
       date: { $gte: start, $lte: end }
     });
-
+    
     res.status(200).json(entries);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch entries between dates', error: err });
+    res.status(500).json({ message: 'Failed to fetch entries between dates.', error: err });
   }
 }
