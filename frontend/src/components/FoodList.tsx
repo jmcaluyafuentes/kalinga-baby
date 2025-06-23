@@ -13,6 +13,8 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 type FoodEntry = {
   _id: string;
   food: string;
@@ -33,7 +35,7 @@ const FoodList = ({ entries, loading, date, onDelete }: FoodListProps) => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`https://kalinga-baby-api.onrender.com/api/foods/${id}`);
+      await axios.delete(`${apiUrl}/api/foods/${id}`);
       onDelete(); //re-fetch entries
     } catch (err) {
       console.error('Failed to delete entry', err);

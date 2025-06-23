@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import Hero from '../components/Hero';
 import { Container, Typography, Card, CardActionArea, CardContent } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const features = [
   { title: 'Food Tracker', path: '/food' },
@@ -15,6 +19,11 @@ const features = [
 ];
 
 const Home = () => {
+  // Pre-warm the backend (Render free tier) by sending a ping request on initial load
+  useEffect(() => {
+    axios.get(`${apiUrl}/ping`).catch(() => {});
+  }, []);
+
   return (
     <>
       <Hero />

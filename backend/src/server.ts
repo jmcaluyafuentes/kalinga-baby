@@ -16,7 +16,11 @@ app.get('/', (req, res) => {
   res.send('Welcome to Kalinga Baby app.')
 });
 
-app.use('/api/foods', foodRoutes)
+app.get('/ping', (req, res) => {
+  res.send('pong')
+});
+
+app.use('/api/foods', foodRoutes);
 
 mongoose.connect(process.env.MONGO_URI!)
   .then(() => {

@@ -7,6 +7,8 @@ import FoodForm from '../components/FoodForm';
 import FoodList from '../components/FoodList';
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const FoodTracker = () => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +20,7 @@ const FoodTracker = () => {
     if (!selectedDate) return;
     setLoading(true);
     try {
-      const res = await axios.get(`https://kalinga-baby-api.onrender.com/api/foods/${formattedDate}`);
+      const res = await axios.get(`${apiUrl}/api/foods/${formattedDate}`);
       setEntries(res.data);
     } catch (err) {
       console.error(err);

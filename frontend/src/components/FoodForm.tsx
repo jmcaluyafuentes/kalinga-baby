@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 type FoodFormProps = {
   onEntrySaved: () => void;
 };
@@ -40,7 +42,7 @@ const FoodForm = ({ onEntrySaved }: FoodFormProps) => {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://kalinga-baby-api.onrender.com/api/foods", form);
+      const res = await axios.post(`${apiUrl}/api/foods`, form);
 
       if (res.status === 201) {
         setSuccessOpen(true);
