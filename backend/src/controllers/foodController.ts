@@ -19,9 +19,6 @@ export const addFoodEntry = async (req: Request, res: Response) => {
 export const getEntriesByDate = async (req: Request, res: Response) => {
   const date = req.params.date;
 
-  console.log('Date:', date);
-
-
   try {
     const entries = await Food.find({ date });
 
@@ -33,9 +30,6 @@ export const getEntriesByDate = async (req: Request, res: Response) => {
 
 export const getEntriesBetweenDates = async (req: Request, res: Response) => {
   const { start, end } = req.query;
-
-  console.log('Start:', start, 'End:', end);
-
 
   if (!start || !end) {
     return res.status(400).json({ message: 'Start and end dates are required.' });
@@ -57,7 +51,35 @@ export const getEntriesAll = async (req: Request, res: Response) => {
     const entries = await Food.find({});
     res.status(200).json(entries);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch entries.', error: err })
+    res.status(500).json({ message: 'Failed to fetch entries.', error: err });
+  }
+}
+
+export const getEntryById = async (req: Request, res: Response) => {
+  try {
+    const entry = await Food.findById(req.params.id);
+    if (!entry) {
+      return res.status(404).json({ message: 'Not found' });
+    }
+    res.json(entry);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch the entry.', error: err });
+  }
+}
+
+export const updateEntry = async (req: Request, res: Response) => {
+  try {
+    const updated = await Food.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ message: 'Not found' });
+    }
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err });
   }
 }
 
