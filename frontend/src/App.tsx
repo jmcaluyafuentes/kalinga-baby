@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import FoodTracker from './pages/FoodTracker';
 import About from './pages/About';
+import FoodEdit from './components/FoodEdit';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/food" element={<FoodTracker />} />
+          <Route path="/food/:id/edit" element={<FoodEdit />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </Box>

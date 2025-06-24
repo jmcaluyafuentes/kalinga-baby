@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   Typography,
   Paper,
@@ -20,18 +21,18 @@ type FoodEntry = {
   food: string;
   quantity: string;
   time: string;
-  date: string;
   notes?: string;
 };
 
 type FoodListProps = {
   entries: FoodEntry[];
   loading: boolean;
-  date: string;
   onDelete: () => void;
 };
 
-const FoodList = ({ entries, loading, date, onDelete }: FoodListProps) => {
+const FoodList = ({ entries, loading, onDelete }: FoodListProps) => {
+
+  const navigate = useNavigate();
 
   const handleDelete = async (id: string) => {
     try {
@@ -51,11 +52,7 @@ const FoodList = ({ entries, loading, date, onDelete }: FoodListProps) => {
   }
 
   return (
-    <Paper elevation={2} sx={{ p: 4, maxWidth: 480, mx: 'auto', mt: 4, mb: 4 }}>
-      <Typography variant="h6" gutterBottom>
-        Today's Food Intake ({date})
-      </Typography>
-
+    <Paper elevation={2} sx={{ p: 2, maxWidth: 480, mx: 'auto', mt: 2, mb: 2 }}>
       {loading ? (
         <Typography>Loading...</Typography>
       ) : entries.length === 0 ? (
@@ -64,7 +61,22 @@ const FoodList = ({ entries, loading, date, onDelete }: FoodListProps) => {
         <List>
           {entries.map((entry) => (
             <Box key={entry._id}>
+              {/* @ts-expect-error added button prop*/}
               <ListItem
+                button = "true"
+                sx={{
+                  p: 2,
+                  mb: 1,
+                  borderRadius: 2,
+                  border: '1px solid #ddd',
+                  transition: 'background-color 0.2s',
+                  '&:hover': {
+                    backgroundColor: '#f5f5f5',
+                    cursor: 'pointer',
+                  },
+                }}
+                onClick = {() => navigate(`/food/${entry._id}/edit`)}
+                alignItems='flex-start'
                 secondaryAction={
                   <Tooltip title="Delete">
                     <IconButton edge="end" onClick={() => handleDelete(entry._id)}>

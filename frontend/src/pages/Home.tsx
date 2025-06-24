@@ -31,7 +31,7 @@ const Home = () => {
         <Typography variant="h5" gutterBottom>Explore Features</Typography>
         <Grid container spacing={3} mt={2}>
           {features.map(({ title, path }) => (
-            // @ts-ignore
+            // @ts-expect-error list of available features
             <Grid item xs={12} sm={6} md={4} key={title}>
               <Card>
                 <CardActionArea component={Link} to={path}>
