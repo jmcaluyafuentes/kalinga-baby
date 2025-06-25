@@ -46,7 +46,7 @@ const FoodTracker = () => {
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Container sx={{ mt: 4 }}>
-          <FoodForm onEntrySaved={fetchEntries} />
+          <FoodForm onEntrySaved={fetchEntries} setSelectedDate={setSelectedDate} />
           <Paper elevation={3} sx={{ p: 3, maxWidth: 480, mx: 'auto', mt: 4, mb: 4 }}>
             <Typography variant='h6' sx={{ mb: 2 }}>History</Typography>
             <DateInput value={selectedDate} onChange={setSelectedDate} />

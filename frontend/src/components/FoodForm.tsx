@@ -18,9 +18,10 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 type FoodFormProps = {
   onEntrySaved: () => void;
+  setSelectedDate: (date: Date | null) => void
 };
 
-const FoodForm = ({ onEntrySaved }: FoodFormProps) => {
+const FoodForm = ({ onEntrySaved, setSelectedDate }: FoodFormProps) => {
   const [form, setForm] = useState({
     food: "",
     quantity: "",
@@ -46,6 +47,9 @@ const FoodForm = ({ onEntrySaved }: FoodFormProps) => {
 
       if (res.status === 201) {
         setSuccessOpen(true);
+
+        const formattedDate = new Date(form.date);
+        setSelectedDate(formattedDate);
         onEntrySaved(); // Refresh list
       }
 
