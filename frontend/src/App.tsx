@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import FoodTracker from './pages/FoodTracker';
 import About from './pages/About';
 import FoodEdit from './components/FoodEdit';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
         </Routes>
       </Box>
+      <Footer />
     </>
   );
 }

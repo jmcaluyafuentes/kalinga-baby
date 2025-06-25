@@ -28,7 +28,8 @@ const Navbar = () => {
         sx={{
           bgcolor: '#f8f9fa',
           color: '#333',
-          zIndex: (theme) => theme.zIndex.drawer + 1
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          pt: '5px'
         }}
         elevation={1}
       >
