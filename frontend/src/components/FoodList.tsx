@@ -124,13 +124,15 @@ const FoodList = ({ entries, loading, onDelete }: FoodListProps) => {
             ))}
           </List>
         )}
-        <Typography
+        {entries.length > 0 &&
+          <Typography
           variant="caption"
           color="text.secondary"
           sx={{ display: 'block', mt: 1, textAlign: 'center' }}
-        >
+          >
           Click an entry to edit food details.
         </Typography>
+        }
       </Paper>
 
       {/* Confirmation Dialog */}

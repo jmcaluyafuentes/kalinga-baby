@@ -9,11 +9,11 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const features = [
   { title: 'Food Tracker', path: '/food' },
-  { title: 'Sleep Tracker', path: '/sleep' },
+  { title: 'Sleep Tracker', path: '/sleeptracker' },
   { title: 'Milestones', path: '/milestones' },
-  { title: 'Baby Items', path: '/items' },
+  { title: 'Baby Items', path: '/babyitems' },
   { title: 'Appointments', path: '/appointments' },
-  { title: 'Todo List', path: '/todo' },
+  { title: 'Todo List', path: '/todolist' },
   { title: 'Tips', path: '/tips' },
   { title: 'Blog', path: '/blog' },
 ];

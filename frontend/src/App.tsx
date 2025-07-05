@@ -6,6 +6,13 @@ import FoodTracker from './pages/FoodTracker';
 import About from './pages/About';
 import FoodEdit from './components/FoodEdit';
 import Footer from './components/Footer';
+import SleepTracker from './pages/SleepTracker';
+import Milestones from './pages/Milestones';
+import BabyItems from './pages/BabyItems';
+import Appointments from './pages/Appointments';
+import TodoList from './pages/TodoList';
+import Tips from './pages/Tips';
+import Blog from './pages/Blog';
 
 const App = () => {
   return (
@@ -16,6 +23,13 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/food" element={<FoodTracker />} />
           <Route path="/food/:id/edit" element={<FoodEdit />} />
+          <Route path="/sleeptracker" element={<SleepTracker />} />
+          <Route path="/milestones" element={<Milestones />} />
+          <Route path="/babyitems" element={<BabyItems />} />
+          <Route path="/appointments" element={<Appointments />} />
+          <Route path="/todolist" element={<TodoList />} />
+          <Route path="/tips" element={<Tips />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </Box>
