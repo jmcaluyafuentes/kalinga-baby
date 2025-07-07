@@ -78,6 +78,19 @@ const FoodList = ({ entries, loading, onDelete }: FoodListProps) => {
         elevation={2}
         sx={{ p: 2, maxWidth: 480, mx: "auto", mt: 2, mb: 2 }}
       >
+
+        {/* Display a note that user can edit a food entry */}
+        {entries.length > 0 &&
+          <Typography
+          variant="caption"
+          color="text.secondary"
+          sx={{ display: 'block', mt: 1, textAlign: 'center' }}
+          >
+          Click an entry to edit food details.
+        </Typography>
+        }
+
+        {/* Display all food entries */}
         {entries.length === 0 ? (
           <Typography>No entries yet.</Typography>
         ) : (
@@ -124,15 +137,6 @@ const FoodList = ({ entries, loading, onDelete }: FoodListProps) => {
             ))}
           </List>
         )}
-        {entries.length > 0 &&
-          <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ display: 'block', mt: 1, textAlign: 'center' }}
-          >
-          Click an entry to edit food details.
-        </Typography>
-        }
       </Paper>
 
       {/* Confirmation Dialog */}

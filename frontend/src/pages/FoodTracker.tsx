@@ -7,6 +7,7 @@ import DateInput from '../components/DateInput';
 import FoodForm from '../components/FoodForm';
 import FoodList from '../components/FoodList';
 import axios from 'axios';
+import FoodsTried from '../components/FoodsTried';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -14,6 +15,7 @@ const FoodTracker = () => {
   const location = useLocation();
 
   const [entries, setEntries] = useState([]);
+  const [allEntries, setAllEntries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   
@@ -32,6 +34,15 @@ const FoodTracker = () => {
     }
   };
 
+  const fetchAllEntries = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/api/foods`);
+      setAllEntries(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     if (location.state?.selectedDate) {
       setSelectedDate(new Date(location.state.selectedDate));
@@ -40,12 +51,14 @@ const FoodTracker = () => {
 
   useEffect(() => {
     fetchEntries();
+    fetchAllEntries();
   }, [selectedDate]);
 
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Container sx={{ mt: 4 }}>
+          <FoodsTried allEntries={allEntries} />
           <FoodForm onEntrySaved={fetchEntries} setSelectedDate={setSelectedDate} />
           <Paper elevation={3} sx={{ p: 3, maxWidth: 480, mx: 'auto', mt: 4, mb: 4 }}>
             <Typography variant='h6' sx={{ mb: 2 }}>History</Typography>
