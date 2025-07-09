@@ -14,6 +14,7 @@ import Appointments from './pages/Appointments';
 import TodoList from './pages/TodoList';
 import Tips from './pages/Tips';
 import Blog from './pages/Blog';
+import LoginPage from './pages/LoginPage';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/food" element={<FoodTracker />} />
             <Route path="/food/:id/edit" element={<FoodEdit />} />
             <Route path="/sleeptracker" element={<SleepTracker />} />
