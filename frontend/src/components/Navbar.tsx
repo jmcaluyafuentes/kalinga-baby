@@ -9,7 +9,7 @@ import {
   Box,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const navItems = [
@@ -20,6 +20,42 @@ const navItems = [
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  const authButtons = token ? (
+    <Button
+      color="inherit"
+      onClick={handleLogout}
+      sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '16px', textTransform: 'none' }}
+    >
+      Logout
+    </Button>
+  ) : (
+    <>
+      <Button
+        color="inherit"
+        component={Link}
+        to="/login"
+        sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '16px', textTransform: 'none' }}
+      >
+        Login
+      </Button>
+      <Button
+        color="inherit"
+        component={Link}
+        to="/register"
+        sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '16px', textTransform: 'none' }}
+      >
+        Register
+      </Button>
+    </>
+  );
 
   return (
     <>
@@ -29,7 +65,7 @@ const Navbar = () => {
           bgcolor: '#f8f9fa',
           color: '#333',
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          pt: '5px'
+          pt: '5px',
         }}
         elevation={1}
       >
@@ -51,7 +87,7 @@ const Navbar = () => {
           </Typography>
 
           {/* Desktop menu */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
             <Stack direction="row" spacing={2}>
               {navItems.map((item) => (
                 <Button
@@ -59,11 +95,12 @@ const Navbar = () => {
                   color="inherit"
                   component={Link}
                   to={item.path}
-                  sx={{ fontFamily: 'Poppins, sans-serif', fontSize:'16px', textTransform: 'none' }}
+                  sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '16px', textTransform: 'none' }}
                 >
                   {item.label}
                 </Button>
               ))}
+              {authButtons}
             </Stack>
           </Box>
 
@@ -78,7 +115,7 @@ const Navbar = () => {
           <Box
             sx={{
               position: 'absolute',
-              top: '48px', // height of AppBar
+              top: '48px',
               left: 0,
               width: '100%',
               zIndex: 1300,
@@ -106,12 +143,61 @@ const Navbar = () => {
                       textTransform: 'none',
                       fontFamily: 'Poppins, sans-serif',
                       color: '#333',
-                      fontSize: '18px'
+                      fontSize: '18px',
                     }}
                   >
                     {item.label}
                   </Button>
                 ))}
+                {/* Auth buttons in mobile menu */}
+                {token ? (
+                  <Button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      handleLogout();
+                    }}
+                    sx={{
+                      justifyContent: 'flex-start',
+                      textTransform: 'none',
+                      fontFamily: 'Poppins, sans-serif',
+                      color: '#333',
+                      fontSize: '18px',
+                    }}
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      component={Link}
+                      to="/login"
+                      onClick={() => setMenuOpen(false)}
+                      sx={{
+                        justifyContent: 'flex-start',
+                        textTransform: 'none',
+                        fontFamily: 'Poppins, sans-serif',
+                        color: '#333',
+                        fontSize: '18px',
+                      }}
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      component={Link}
+                      to="/register"
+                      onClick={() => setMenuOpen(false)}
+                      sx={{
+                        justifyContent: 'flex-start',
+                        textTransform: 'none',
+                        fontFamily: 'Poppins, sans-serif',
+                        color: '#333',
+                        fontSize: '18px',
+                      }}
+                    >
+                      Register
+                    </Button>
+                  </>
+                )}
               </Stack>
             </Collapse>
           </Box>

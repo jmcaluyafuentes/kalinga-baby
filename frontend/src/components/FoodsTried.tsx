@@ -14,9 +14,9 @@ type Props = {
 };
 
 const FoodsTried = ({ allEntries }: Props) => {
-  console.log(allEntries)
+
   const foods = extractFoodsTried(allEntries);
-  console.log(foods);
+
   if (foods.length === 0) return null;
 
   return (
