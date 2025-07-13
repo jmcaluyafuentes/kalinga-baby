@@ -42,7 +42,7 @@ const Navbar = () => {
     <>
       <AppBar
         position="fixed"
-        sx={{ bgcolor: "#f8f9fa", color: "#333", pt: '7px' }}
+        sx={{ bgcolor: "#f8f9fa", color: "#333" }}
         elevation={1}
       >
         <Toolbar sx={{ justifyContent: "space-between", flexWrap: "wrap" }}>

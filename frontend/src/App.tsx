@@ -25,7 +25,7 @@ const App = () => {
         }}
       >
         <Navbar />
-        <Box component="main" sx={{ flexGrow: 1, pt: '64px' }}>
+        <Box component="main" sx={{ flexGrow: 1, pt: '50px' }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/food" element={<FoodTracker />} />
