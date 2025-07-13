@@ -1,47 +1,61 @@
-import { useState } from 'react';
-import { TextField, Button, Box, Typography, Alert } from '@mui/material';
-import axios from 'axios';
-import { registerSchema } from '../utils/validation';
+import { useState } from "react";
+import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import axios from "axios";
+import { registerSchema } from "../utils/validation";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 type Props = { onSuccess?: () => void };
 
 const RegisterForm = ({ onSuccess }: Props) => {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; password?: string }>({});
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+  }>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setFieldErrors({ ...fieldErrors, [e.target.name]: '' }); // clear error on change
+    setFieldErrors({ ...fieldErrors, [e.target.name]: "" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
     setFieldErrors({});
 
     // Validate form data using Zod
     const result = registerSchema.safeParse(form);
     if (!result.success) {
-      const errors: { name?: string; email?: string; password?: string } = {};
+      const errors: typeof fieldErrors = {};
       result.error.issues.forEach((err) => {
-        if (err.path[0] === 'name') errors.name = err.message;
-        if (err.path[0] === 'email') errors.email = err.message;
-        if (err.path[0] === 'password') errors.password = err.message;
+        const field = err.path[0] as keyof typeof fieldErrors;
+        errors[field] = err.message;
       });
       setFieldErrors(errors);
       return;
     }
 
     try {
-      await axios.post(`${apiUrl}/api/auth/register`, form);
+      await axios.post(`${apiUrl}/api/auth/register`, {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+
       setSuccess('Registration successful! You can now log in.');
       if (onSuccess) onSuccess();
-      setForm({ name: '', email: '', password: '' });
+      setForm({ name: '', email: '', password: '', confirmPassword: '' });
     } catch (err) {
       // @ts-expect-error error has type of any
       setError(err.response?.data?.message || 'Registration failed');
@@ -85,6 +99,18 @@ const RegisterForm = ({ onSuccess }: Props) => {
         onChange={handleChange}
         error={!!fieldErrors.password}
         helperText={fieldErrors.password}
+        sx={{ mt: 2 }}
+      />
+
+      <TextField
+        fullWidth
+        label="Confirm Password"
+        type="password"
+        name="confirmPassword"
+        value={form.confirmPassword}
+        onChange={handleChange}
+        error={!!fieldErrors.confirmPassword}
+        helperText={fieldErrors.confirmPassword}
         sx={{ mt: 2 }}
       />
 
