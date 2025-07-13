@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const LoginForm = () => {
+type Props = { onSuccess?: () => void };
+
+const LoginForm = ({ onSuccess }: Props) => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const LoginForm = () => {
     try {
       const res = await axios.post(`${apiUrl}/api/auth/login`, form);
       localStorage.setItem('token', res.data.token);
+      if (onSuccess) onSuccess();
       navigate('/'); // redirect after login
     } catch (err) {
       // @ts-expect-error error has type of any

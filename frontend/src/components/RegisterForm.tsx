@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { TextField, Button, Box, Typography, Alert } from '@mui/material';
+import { TextField, Button, Box, Typography, Alert} from '@mui/material';
 import axios from 'axios';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const RegisterForm = () => {
+type Props = { onSuccess?: () => void };
+
+const RegisterForm = ({ onSuccess }: Props) => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -20,6 +22,7 @@ const RegisterForm = () => {
     try {
       await axios.post(`${apiUrl}/api/auth/register`, form);
       setSuccess('Registration successful! You can now log in.');
+      if (onSuccess) onSuccess();
       setForm({ name: '', email: '', password: '' });
     } catch (err) {
       // @ts-expect-error error has type of any
