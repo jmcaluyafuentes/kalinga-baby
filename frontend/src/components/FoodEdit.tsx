@@ -157,9 +157,14 @@ const FoodEdit = () => {
 
         <Snackbar
           open={successOpen}
-          autoHideDuration={3000}
+          autoHideDuration={6000}
           onClose={() => setSuccessOpen(false)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          sx={{
+            "& .MuiPaper-root": {
+              marginTop: '70px', // shift snackbar downward
+            },
+          }}
           >
           <Alert onClose={() => setSuccessOpen(false)} severity="success" sx={{ width: '100%' }}>
             Entry updated successfully!

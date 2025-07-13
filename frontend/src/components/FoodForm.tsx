@@ -131,6 +131,11 @@ const FoodForm = ({ onEntrySaved, setSelectedDate }: FoodFormProps) => {
         autoHideDuration={6000}
         onClose={() => setSuccessOpen(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        sx={{
+            "& .MuiPaper-root": {
+              marginTop: '70px', // shift snackbar downward
+            },
+        }}
       >
         <Alert
           onClose={() => setSuccessOpen(false)}
