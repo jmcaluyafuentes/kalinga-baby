@@ -25,8 +25,27 @@ app.get('/ping', (req, res) => {
 app.use('/api/foods', foodRoutes);
 
 mongoose.connect(process.env.MONGO_URI!)
-  .then(() => {
-    console.log('MongoDB connected');
-    app.listen(PORT, () => console.log(`Backend server is running on port ${PORT}.`));
+  .then(async () => {
+    console.log('✅ MongoDB connected');
+
+    // Keep-alive ping every 9 minutes to prevent spin-down (for free-tier dev use)
+    await mongoose.connection.asPromise();
+
+    if (mongoose.connection.db) {
+      setInterval(async () => {
+        try {
+          await mongoose.connection.db!.command({ ping: 1 });
+          console.log('✅ Pinged MongoDB to keep connection alive');
+        } catch (err) {
+          console.error('❌ MongoDB ping failed:', err);
+        }
+      }, 1000 * 60 * 9); // every 9 minutes
+    } else {
+      console.warn('⚠️ mongoose.connection.db is undefined after connection');
+    }
+
+    app.listen(PORT, () =>
+      console.log(`🚀 Server is running on port ${PORT}`)
+    );
   })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
