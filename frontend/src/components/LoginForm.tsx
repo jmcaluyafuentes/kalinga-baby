@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { TextField, Button, Box, Alert } from '@mui/material';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { TextField, Button, Box, Alert, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { loginSchema } from '../utils/validation';
+import axios from 'axios';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -12,6 +13,7 @@ const LoginForm = ({ onSuccess }: Props) => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,13 +71,26 @@ const LoginForm = ({ onSuccess }: Props) => {
       <TextField
         fullWidth
         label="Password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         name="password"
         value={form.password}
         onChange={handleChange}
         error={!!fieldErrors.password}
         helperText={fieldErrors.password}
         sx={{ mt: 2 }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                onClick={() => setShowPassword((show) => !show)}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
 
       <Button type="submit" variant="contained" fullWidth sx={{ mt: 3 }}>
