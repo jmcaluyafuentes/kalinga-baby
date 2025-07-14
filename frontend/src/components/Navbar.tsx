@@ -11,9 +11,11 @@ import {
   DialogContent,
   DialogActions,
   Snackbar,
-  Alert
+  Alert,
+  DialogTitle
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
@@ -175,6 +177,18 @@ const Navbar = () => {
         maxWidth="xs"
         fullWidth
       >
+        <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
+          {showRegister ? 'Register' : 'Login'}
+          <IconButton
+            aria-label="close"
+            onClick={() => setAuthModalOpen(false)}
+            sx={{
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent dividers>
           {showRegister ? (
             <RegisterForm onSuccess={() => { 

@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Alert,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import { registerSchema } from "../utils/validation";
 
@@ -23,6 +31,10 @@ const RegisterForm = ({ onSuccess }: Props) => {
     confirmPassword?: string;
   }>({});
 
+  // New states for show/hide password
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setFieldErrors({ ...fieldErrors, [e.target.name]: "" });
@@ -34,7 +46,6 @@ const RegisterForm = ({ onSuccess }: Props) => {
     setSuccess("");
     setFieldErrors({});
 
-    // Validate form data using Zod
     const result = registerSchema.safeParse(form);
     if (!result.success) {
       const errors: typeof fieldErrors = {};
@@ -53,18 +64,21 @@ const RegisterForm = ({ onSuccess }: Props) => {
         password: form.password,
       });
 
-      setSuccess('Registration successful! You can now log in.');
+      setSuccess("Registration successful! You can now log in.");
       if (onSuccess) onSuccess();
-      setForm({ name: '', email: '', password: '', confirmPassword: '' });
+      setForm({ name: "", email: "", password: "", confirmPassword: "" });
     } catch (err) {
       // @ts-expect-error error has type of any
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <Typography variant="h5" gutterBottom>Register</Typography>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{ maxWidth: 400, mx: "auto" }}
+    >
       {error && <Alert severity="error">{error}</Alert>}
       {success && <Alert severity="success">{success}</Alert>}
 
@@ -93,25 +107,53 @@ const RegisterForm = ({ onSuccess }: Props) => {
       <TextField
         fullWidth
         label="Password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         name="password"
         value={form.password}
         onChange={handleChange}
         error={!!fieldErrors.password}
         helperText={fieldErrors.password}
         sx={{ mt: 2 }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                onClick={() => setShowPassword((show) => !show)}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
 
       <TextField
         fullWidth
         label="Confirm Password"
-        type="password"
+        type={showConfirmPassword ? "text" : "password"}
         name="confirmPassword"
         value={form.confirmPassword}
         onChange={handleChange}
         error={!!fieldErrors.confirmPassword}
         helperText={fieldErrors.confirmPassword}
         sx={{ mt: 2 }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label={
+                  showConfirmPassword ? "Hide password" : "Show password"
+                }
+                onClick={() => setShowConfirmPassword((show) => !show)}
+                edge="end"
+              >
+                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
 
       <Button type="submit" variant="contained" fullWidth sx={{ mt: 3 }}>

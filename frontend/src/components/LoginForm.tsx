@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextField, Button, Box, Typography, Alert } from '@mui/material';
+import { TextField, Button, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { loginSchema } from '../utils/validation';
@@ -51,12 +51,8 @@ const LoginForm = ({ onSuccess }: Props) => {
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}
+      sx={{ maxWidth: 400, mx: 'auto' }}
     >
-      <Typography variant="h5" gutterBottom>
-        Login
-      </Typography>
-
       {error && <Alert severity="error">{error}</Alert>}
 
       <TextField
