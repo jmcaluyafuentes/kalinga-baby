@@ -23,7 +23,6 @@ const RegisterForm = ({ onSuccess }: Props) => {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{
     name?: string;
     email?: string;
@@ -43,7 +42,6 @@ const RegisterForm = ({ onSuccess }: Props) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setSuccess("");
     setFieldErrors({});
 
     const result = registerSchema.safeParse(form);
@@ -64,12 +62,11 @@ const RegisterForm = ({ onSuccess }: Props) => {
         password: form.password,
       });
 
-      setSuccess("Registration successful! You can now log in.");
       if (onSuccess) onSuccess();
       setForm({ name: "", email: "", password: "", confirmPassword: "" });
     } catch (err) {
       // @ts-expect-error error has type of any
-      setError(err.response?.data?.message || "Registration failed");
+      setError(err.response?.data?.message || "Registration failed. Please try again!");
     }
   };
 
@@ -80,7 +77,6 @@ const RegisterForm = ({ onSuccess }: Props) => {
       sx={{ maxWidth: 400, mx: "auto" }}
     >
       {error && <Alert severity="error">{error}</Alert>}
-      {success && <Alert severity="success">{success}</Alert>}
 
       <TextField
         fullWidth

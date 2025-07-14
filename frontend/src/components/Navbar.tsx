@@ -181,7 +181,10 @@ const Navbar = () => {
           {showRegister ? 'Register' : 'Login'}
           <IconButton
             aria-label="close"
-            onClick={() => setAuthModalOpen(false)}
+            onClick={() => {
+              setAuthModalOpen(false); 
+              setShowRegister(false);
+            }}
             sx={{
               color: (theme) => theme.palette.grey[500],
             }}
@@ -214,7 +217,7 @@ const Navbar = () => {
           open={successOpen}
           autoHideDuration={6000}
           onClose={() => setSuccessOpen(false)}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
           sx={{
             "& .MuiPaper-root": {
               marginTop: '70px', // shift snackbar downward
