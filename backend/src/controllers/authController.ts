@@ -23,31 +23,32 @@ interface LoginBody {
   password: string;
 }
 
-export const registerUser = async (
-  req: Request<{}, {}, RegisterBody>,
-  res: Response
-) => {
+export const registerUser = async ( req: Request<{}, {}, RegisterBody>, res: Response) => {
   const { name, email, password } = req.body;
 
+  const emailNormalize = email.toLowerCase();
+
   try {
-    const exists = await User.findOne({ email });
+    const exists = await User.findOne({ email: emailNormalize });
     if (exists) return res.status(400).json({ message: 'Email already in use' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hashedPassword });
+    await User.create({ name, email: emailNormalize, password: hashedPassword });
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
     console.error('Register error:', err);
-    res.status(500).json({ message: 'Error registering user' });
+    res.status(500).json({ message: 'Error registering user. Please try again!' });
   }
 };
 
 export const loginUser = async (req: Request<{}, {}, LoginBody>, res: Response) => {
   const { email, password } = req.body;
 
+  const emailNormalize = email.toLowerCase();
+
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: emailNormalize });
     if (!user) return res.status(400).json({ message: 'Invalid email or password' });
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -61,6 +62,6 @@ export const loginUser = async (req: Request<{}, {}, LoginBody>, res: Response) 
     });
   } catch (err) {
     console.error('Login error:', err);
-    res.status(500).json({ message: 'Error logging in' });
+    res.status(500).json({ message: 'Error logging in. Please try again!' });
   }
 };
