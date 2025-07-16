@@ -2,19 +2,29 @@ import { Request, Response } from 'express';
 import Food from '../models/foodModel';
 
 export const addFoodEntry = async (req: Request, res: Response) => {
-  const { food, quantity, date, time } = req.body;
+  const { food, quantity, date, time, notes } = req.body;
+
   try {
     if (!food || !quantity || !date || !time) {
-      res.status(400).json({ message: 'Missing required fields.' });
+      return res.status(400).json({ message: 'Missing required fields.' });
     }
 
-    const newEntry = new Food(req.body);
+    const newEntry = new Food({
+      food,
+      quantity,
+      date,
+      time,
+      notes,
+      user: req.user?.id,
+    });
+
     const savedEntry = await newEntry.save();
     res.status(201).json(savedEntry);
   } catch (err) {
     res.status(400).json({ message: 'Failed to add food entry', error: err });
   }
-}
+};
+
 
 export const getEntriesByDate = async (req: Request, res: Response) => {
   const date = req.params.date;

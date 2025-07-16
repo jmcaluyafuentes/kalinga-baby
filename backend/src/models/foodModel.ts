@@ -5,7 +5,8 @@ const foodSchema = new mongoose.Schema({
   quantity: { type: String, required: true },
   time: { type: String, required: true },
   date: { type: String, required: true },
-  notes: { type: String }
+  notes: { type: String },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 const Food = mongoose.model('Food', foodSchema);

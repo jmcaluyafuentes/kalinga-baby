@@ -8,10 +8,12 @@ import {
   updateEntry,
   deleteEntry,
 } from "../controllers/foodController";
+import { authMiddleware } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.post("/", addFoodEntry);
+// @ts-ignore
+router.post("/", authMiddleware, addFoodEntry);
 // @ts-ignore
 router.get("/range", getEntriesBetweenDates);
 router.get("/date/:date", getEntriesByDate);
