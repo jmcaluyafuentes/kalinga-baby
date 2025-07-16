@@ -50,11 +50,12 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    setMenuOpen(false);
     if (location.state?.openLogin) {
       setAuthModalOpen(true);
       window.history.replaceState({}, document.title);
     }
-  }, [location.state]);
+  }, [location.pathname]);
 
   return (
     <>
@@ -90,6 +91,9 @@ const Navbar = () => {
                   key={item.path}
                   component={Link}
                   to={item.path}
+                  onClick={() => {
+                    setMenuOpen(false);
+                  }}
                   sx={{
                     textTransform: "none",
                     fontFamily: "Poppins, sans-serif",
