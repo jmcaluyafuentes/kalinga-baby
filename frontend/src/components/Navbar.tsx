@@ -32,9 +32,15 @@ const Navbar = () => {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [loginSnackbarOpen, setLoginSnackbarOpen] = useState(false);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Call this when user logs in successfully
+  const handleLoginSuccess = () => {
+    setLoginSnackbarOpen(true);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -207,7 +213,10 @@ const Navbar = () => {
               setSuccessOpen(true); 
             }} />
           ) : (
-            <LoginForm onSuccess={() => setAuthModalOpen(false)} />
+            <LoginForm onSuccess={() => {
+              setAuthModalOpen(false);
+              handleLoginSuccess();
+            }} />
           )}
         </DialogContent>
         <DialogActions>
@@ -239,6 +248,23 @@ const Navbar = () => {
           >
             Registration successful! You can now log in.
           </Alert>
+      </Snackbar>
+
+      {/* Snackbar upon successful user login */}
+      <Snackbar
+        open={loginSnackbarOpen}
+        autoHideDuration={4000}
+        onClose={() => setLoginSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{
+          "& .MuiPaper-root": {
+            marginTop: '70px', // shift snackbar downward
+          },
+        }}
+      >
+        <Alert severity="success" onClose={() => setLoginSnackbarOpen(false)} sx={{ width: '100%' }}>
+          Welcome back! You are logged in.
+        </Alert>
       </Snackbar>
     </>
   );
