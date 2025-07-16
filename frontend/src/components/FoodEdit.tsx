@@ -169,12 +169,22 @@ const FoodEdit = () => {
           onClose={() => setSuccessOpen(false)}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
           sx={{
+            pointerEvents: 'none',
             "& .MuiPaper-root": {
-              marginTop: '70px', // shift snackbar downward
+              marginTop: '70px',
+              pointerEvents: 'auto',
             },
           }}
           >
-          <Alert onClose={() => setSuccessOpen(false)} severity="success" sx={{ width: '100%' }}>
+          <Alert onClose={() => setSuccessOpen(false)} 
+            severity="success"           
+            sx={{       
+              px: 3,
+              py: 2,
+              mx: 'auto',
+              width: 'auto',
+              minWidth: 'unset',
+            }}>
             Entry updated successfully!
           </Alert>
         </Snackbar>
@@ -184,8 +194,23 @@ const FoodEdit = () => {
           autoHideDuration={3000}
           onClose={() => setErrorOpen(false)}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          sx={{
+            pointerEvents: 'none',
+            "& .MuiPaper-root": {
+              marginTop: '70px',
+              pointerEvents: 'auto',
+            },
+          }}
           >
-          <Alert onClose={() => setErrorOpen(false)} severity="error" sx={{ width: '100%' }}>
+          <Alert onClose={() => setErrorOpen(false)} 
+            severity="error"           
+            sx={{       
+              px: 3,
+              py: 2,
+              mx: 'auto',
+              width: 'auto',
+              minWidth: 'unset',
+            }}>
             Failed to update entry. Please try again.
           </Alert>
         </Snackbar>

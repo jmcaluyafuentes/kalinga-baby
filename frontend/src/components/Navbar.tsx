@@ -33,6 +33,7 @@ const Navbar = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [loginSnackbarOpen, setLoginSnackbarOpen] = useState(false);
+  const [logoutSuccess, setLogoutSuccess] = useState(false);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,6 +45,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setLogoutSuccess(true);
     navigate("/");
   };
 
@@ -236,15 +238,23 @@ const Navbar = () => {
           onClose={() => setSuccessOpen(false)}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           sx={{
+            pointerEvents: 'none',
             "& .MuiPaper-root": {
-              marginTop: '70px', // shift snackbar downward
+              marginTop: '70px',
+              pointerEvents: 'auto',
             },
           }}
         >
           <Alert
             onClose={() => setSuccessOpen(false)}
             severity="success"
-            sx={{ width: "100%" }}
+            sx={{       
+              px: 3,
+              py: 2,
+              mx: 'auto',
+              width: 'auto',
+              minWidth: 'unset',
+            }}
           >
             Registration successful! You can now log in.
           </Alert>
@@ -257,13 +267,52 @@ const Navbar = () => {
         onClose={() => setLoginSnackbarOpen(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{
+          pointerEvents: 'none',
           "& .MuiPaper-root": {
-            marginTop: '70px', // shift snackbar downward
+            marginTop: '70px',
+            pointerEvents: 'auto',
           },
         }}
       >
-        <Alert severity="success" onClose={() => setLoginSnackbarOpen(false)} sx={{ width: '100%' }}>
+        <Alert severity="success" 
+          onClose={() => setLoginSnackbarOpen(false)}           
+          sx={{       
+            px: 3,
+            py: 2,
+            mx: 'auto',
+            width: 'auto',
+            minWidth: 'unset',
+          }}>
           Welcome back! You are logged in.
+        </Alert>
+      </Snackbar>
+
+      {/* Snackbar upon successful user logout */}
+      <Snackbar
+        open={logoutSuccess}
+        autoHideDuration={6000}
+        onClose={() => setLogoutSuccess(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{
+          pointerEvents: 'none',
+          "& .MuiPaper-root": {
+            marginTop: '70px',
+            pointerEvents: 'auto',
+          },
+        }}
+      >
+        <Alert
+          onClose={() => setLogoutSuccess(false)}
+          severity="success"
+          sx={{       
+            px: 3,
+            py: 2,
+            mx: 'auto',
+            width: 'auto',
+            minWidth: 'unset',
+          }}
+        >
+          You have successfully logged out.
         </Alert>
       </Snackbar>
     </>

@@ -136,15 +136,23 @@ const FoodForm = ({ onEntrySaved, setSelectedDate }: FoodFormProps) => {
         onClose={() => setSuccessOpen(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         sx={{
-            "& .MuiPaper-root": {
-              marginTop: '70px', // shift snackbar downward
-            },
+          pointerEvents: 'none',
+          "& .MuiPaper-root": {
+            marginTop: '70px',
+            pointerEvents: 'auto',
+          },
         }}
       >
         <Alert
           onClose={() => setSuccessOpen(false)}
           severity="success"
-          sx={{ width: "100%" }}
+          sx={{       
+            px: 3,
+            py: 2,
+            mx: 'auto',
+            width: 'auto',
+            minWidth: 'unset',
+          }}
         >
           Food entry added successfully!
         </Alert>
@@ -155,11 +163,24 @@ const FoodForm = ({ onEntrySaved, setSelectedDate }: FoodFormProps) => {
         autoHideDuration={6000}
         onClose={() => setErrorOpen(false)}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        sx={{
+          pointerEvents: 'none',
+          "& .MuiPaper-root": {
+            marginTop: '70px',
+            pointerEvents: 'auto',
+          },
+        }}
       >
         <Alert
           onClose={() => setErrorOpen(false)}
           severity="error"
-          sx={{ width: "100%" }}
+          sx={{       
+            px: 3,
+            py: 2,
+            mx: 'auto',
+            width: 'auto',
+            minWidth: 'unset',
+          }}
         >
           Failed to add food entry. Please try again.
         </Alert>

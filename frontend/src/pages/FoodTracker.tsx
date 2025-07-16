@@ -85,7 +85,7 @@ const FoodTracker = () => {
                   top: 0,
                   left: 0,
                   width: '100%',
-                  height: '100%',
+                  height: '120%',
                   bgcolor: 'rgba(255, 255, 255, 0.7)',
                   backdropFilter: 'blur(1px)',
                   zIndex: 999,
@@ -95,7 +95,7 @@ const FoodTracker = () => {
                   alignItems: 'center',
                   gap: 2,
                   px: 2,
-                  marginTop: '-100px'
+                  marginTop: '-180px'
                 }}
               >
                 <Typography variant="h5" sx={{ textAlign: 'center' }}>
