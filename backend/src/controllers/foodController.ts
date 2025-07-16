@@ -1,7 +1,12 @@
 import { Request, Response } from 'express';
 import Food from '../models/foodModel';
 
-export const addFoodEntry = async (req: Request, res: Response) => {
+// Custom request type with user added by authMiddleware
+interface AuthRequest extends Request {
+  user?: { id: string };
+}
+
+export const addFoodEntry = async (req: AuthRequest, res: Response) => {
   const { food, quantity, date, time, notes } = req.body;
 
   try {
@@ -25,20 +30,18 @@ export const addFoodEntry = async (req: Request, res: Response) => {
   }
 };
 
-
-export const getEntriesByDate = async (req: Request, res: Response) => {
+export const getEntriesByDate = async (req: AuthRequest, res: Response) => {
   const date = req.params.date;
 
   try {
-    const entries = await Food.find({ date });
-
+    const entries = await Food.find({ date, user: req.user?.id });
     res.status(200).json(entries);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch entries.', error: err });
   }
-}
+};
 
-export const getEntriesBetweenDates = async (req: Request, res: Response) => {
+export const getEntriesBetweenDates = async (req: AuthRequest, res: Response) => {
   const { start, end } = req.query;
 
   if (!start || !end) {
@@ -47,27 +50,28 @@ export const getEntriesBetweenDates = async (req: Request, res: Response) => {
 
   try {
     const entries = await Food.find({
-      date: { $gte: start, $lte: end }
+      date: { $gte: start, $lte: end },
+      user: req.user?.id,
     });
-    
+
     res.status(200).json(entries);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch entries between dates.', error: err });
   }
-}
+};
 
-export const getEntriesAll = async (req: Request, res: Response) => {
+export const getEntriesAll = async (req: AuthRequest, res: Response) => {
   try {
-    const entries = await Food.find({});
+    const entries = await Food.find({ user: req.user?.id });
     res.status(200).json(entries);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch entries.', error: err });
   }
-}
+};
 
-export const getEntryById = async (req: Request, res: Response) => {
+export const getEntryById = async (req: AuthRequest, res: Response) => {
   try {
-    const entry = await Food.findById(req.params.id);
+    const entry = await Food.findOne({ _id: req.params.id, user: req.user?.id });
     if (!entry) {
       return res.status(404).json({ message: 'Not found' });
     }
@@ -75,29 +79,32 @@ export const getEntryById = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch the entry.', error: err });
   }
-}
+};
 
-export const updateEntry = async (req: Request, res: Response) => {
+export const updateEntry = async (req: AuthRequest, res: Response) => {
   try {
-    const updated = await Food.findByIdAndUpdate(
-      req.params.id,
+    const updated = await Food.findOneAndUpdate(
+      { _id: req.params.id, user: req.user?.id },
       req.body,
       { new: true }
     );
     if (!updated) {
-      return res.status(404).json({ message: 'Not found' });
+      return res.status(404).json({ message: 'Not found or unauthorized' });
     }
     res.json(updated);
   } catch (err) {
     res.status(400).json({ error: err });
   }
-}
+};
 
-export const deleteEntry = async (req: Request, res: Response) => {
+export const deleteEntry = async (req: AuthRequest, res: Response) => {
   try {
-    await Food.findByIdAndDelete(req.params.id);
+    const deleted = await Food.findOneAndDelete({ _id: req.params.id, user: req.user?.id });
+    if (!deleted) {
+      return res.status(404).json({ message: 'Not found or unauthorized' });
+    }
     res.status(200).json({ message: 'Entry deleted' });
   } catch (err) {
     res.status(500).json({ message: 'Failed to delete' });
   }
-}
+};

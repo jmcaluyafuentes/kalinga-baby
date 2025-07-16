@@ -15,13 +15,14 @@ const router = express.Router();
 // @ts-ignore
 router.post("/", authMiddleware, addFoodEntry);
 // @ts-ignore
-router.get("/range", getEntriesBetweenDates);
-router.get("/date/:date", getEntriesByDate);
-router.get("/", getEntriesAll);
+router.get("/range", authMiddleware, getEntriesBetweenDates);
+router.get("/date/:date", authMiddleware, getEntriesByDate);
+router.get("/", authMiddleware, getEntriesAll);
 // @ts-ignore
-router.get("/:id", getEntryById);
+router.get("/:id", authMiddleware, getEntryById);
 // @ts-ignore
-router.put("/:id", updateEntry);
-router.delete("/:id", deleteEntry);
+router.put("/:id", authMiddleware, updateEntry);
+// @ts-ignore
+router.delete("/:id", authMiddleware, deleteEntry);
 
 export default router;
