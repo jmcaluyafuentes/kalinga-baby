@@ -49,7 +49,11 @@ const FoodList = ({ entries, loading, onDelete }: FoodListProps) => {
   const handleConfirmDelete = async () => {
     if (!entryToDelete) return;
     try {
-      await axios.delete(`${apiUrl}/api/foods/${entryToDelete._id}`);
+      await axios.delete(`${apiUrl}/api/foods/${entryToDelete._id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      });
       onDelete(); // re-fetch entries
     } catch (err) {
       console.error("Failed to delete entry", err);

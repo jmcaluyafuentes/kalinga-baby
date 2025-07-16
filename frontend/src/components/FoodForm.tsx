@@ -43,7 +43,11 @@ const FoodForm = ({ onEntrySaved, setSelectedDate }: FoodFormProps) => {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${apiUrl}/api/foods`, form);
+      const res = await axios.post(`${apiUrl}/api/foods`, form, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      });
 
       if (res.status === 201) {
         setSuccessOpen(true);

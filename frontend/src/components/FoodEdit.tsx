@@ -32,6 +32,7 @@ type Params = {
 const FoodEdit = () => {
   const { id } = useParams<Params>();
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
   const [form, setForm] = useState<Omit<FoodEntry, '_id'>>({
     food: '',
     quantity: '',
@@ -47,7 +48,10 @@ const FoodEdit = () => {
   useEffect(() => {
     const fetchEntry = async () => {
       try {
-        const res = await axios.get<FoodEntry>(`${apiUrl}/api/foods/${id}`);
+        const res = await axios.get<FoodEntry>(`${apiUrl}/api/foods/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }});
         const { food, quantity, time, date, notes } = res.data;
         setForm({ food, quantity, time, date, notes: notes || '' });
       } catch (err) {
@@ -67,7 +71,11 @@ const FoodEdit = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      await axios.put(`${apiUrl}/api/foods/${id}`, form);
+      await axios.put(`${apiUrl}/api/foods/${id}`, form, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      });
       setSuccessOpen(true);
       setTimeout(() => navigate('/food', {
         state: {

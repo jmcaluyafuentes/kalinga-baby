@@ -13,6 +13,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const FoodTracker = () => {
   const location = useLocation();
+  const token = localStorage.getItem('token');
 
   const [entries, setEntries] = useState([]);
   const [allEntries, setAllEntries] = useState([]);
@@ -25,7 +26,11 @@ const FoodTracker = () => {
     if (!selectedDate) return;
     setLoading(true);
     try {
-      const res = await axios.get(`${apiUrl}/api/foods/date/${formattedDate}`);
+      const res = await axios.get(`${apiUrl}/api/foods/date/${formattedDate}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
       setEntries(res.data);
     } catch (err) {
       console.error(err);
@@ -36,7 +41,11 @@ const FoodTracker = () => {
 
   const fetchAllEntries = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/api/foods`);
+      const res = await axios.get(`${apiUrl}/api/foods`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
       setAllEntries(res.data);
     } catch (err) {
       console.error(err);
