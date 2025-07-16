@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Container, Paper, Typography } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Container, Paper, Typography, Box, Button } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import DateInput from '../components/DateInput';
@@ -13,6 +13,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const FoodTracker = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   const [entries, setEntries] = useState([]);
@@ -23,7 +24,7 @@ const FoodTracker = () => {
   const formattedDate = selectedDate?.toISOString().split('T')[0];
 
   const fetchEntries = async () => {
-    if (!selectedDate) return;
+    if (!selectedDate || !token) return;
     setLoading(true);
     try {
       const res = await axios.get(`${apiUrl}/api/foods/date/${formattedDate}`, {
@@ -40,6 +41,7 @@ const FoodTracker = () => {
   };
 
   const fetchAllEntries = async () => {
+    if (!token) return;
     try {
       const res = await axios.get(`${apiUrl}/api/foods`, {
         headers: {
@@ -67,13 +69,44 @@ const FoodTracker = () => {
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Container sx={{ mt: 4 }}>
-          <FoodsTried allEntries={allEntries} />
-          <FoodForm onEntrySaved={fetchEntries} setSelectedDate={setSelectedDate} />
-          <Paper elevation={3} sx={{ p: 3, maxWidth: 480, mx: 'auto', mt: 4, mb: 4 }}>
-            <Typography variant='h6' sx={{ mb: 2 }}>History</Typography>
-            <DateInput value={selectedDate} onChange={setSelectedDate} />
-            <FoodList entries={entries} loading={loading} onDelete={fetchEntries} />
-          </Paper>
+          <Box sx={{ position: 'relative' }}>
+            <FoodsTried allEntries={allEntries} />
+            <FoodForm onEntrySaved={fetchEntries} setSelectedDate={setSelectedDate} />
+            <Paper elevation={3} sx={{ p: 3, maxWidth: 480, mx: 'auto', mt: 4, mb: 4 }}>
+              <Typography variant='h6' sx={{ mb: 2 }}>History</Typography>
+              <DateInput value={selectedDate} onChange={setSelectedDate} />
+              <FoodList entries={entries} loading={loading} onDelete={fetchEntries} />
+            </Paper>
+
+            {!token && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: 'rgba(255, 255, 255, 0.7)',
+                  backdropFilter: 'blur(1px)',
+                  zIndex: 999,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 2,
+                  px: 2,
+                  marginTop: '-100px'
+                }}
+              >
+                <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                  Please log in to access the Food Tracker
+                </Typography>
+                <Button variant="contained" onClick={() => navigate("/", { state: { openLogin: true } })}>
+                  Go to Login
+                </Button>
+              </Box>
+            )}
+          </Box>
         </Container>
       </LocalizationProvider>
     </>

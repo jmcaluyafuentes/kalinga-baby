@@ -73,6 +73,7 @@ const Home = () => {
         <Grid container spacing={3} mt={2}>
           {features.map(({ feature, path, description }) => (
             <Tooltip
+              key={feature}
               title={description}
               slotProps={{
                 popper: {

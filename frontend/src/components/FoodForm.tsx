@@ -69,7 +69,7 @@ const FoodForm = ({ onEntrySaved, setSelectedDate }: FoodFormProps) => {
   return (
     <Paper elevation={3} sx={{ p: 4, maxWidth: 480, mx: "auto", mt: 4 }}>
       <Typography variant="h5" component="h1" gutterBottom>
-        Record Baby's Food Intake
+        Add Baby's Food Intake
       </Typography>
 
       <Box component="form" onSubmit={handleSubmit} noValidate>
