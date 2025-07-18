@@ -3,7 +3,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 type DateInputProps = {
   label?: string;
   value: Date | null;
-  onChange: (date: Date | null) => void;
+  onChange: (value: Date | null) => void;
 };
 
 const DateInput = ({ label = "Select Date", value, onChange }: DateInputProps) => {
@@ -11,7 +11,7 @@ const DateInput = ({ label = "Select Date", value, onChange }: DateInputProps) =
     <DatePicker
       label={label}
       value={value}
-      onChange={onChange}
+      onChange={(newValue) => onChange(newValue)}
       slotProps={{
         textField: {
           fullWidth: true,

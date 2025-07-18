@@ -6,3 +6,5 @@ export interface Milestone {
   achieved: boolean;
   dateAchieved?: string;
 }
+
+export type MilestoneFormData = Omit<Milestone, 'id'>;
