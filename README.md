@@ -57,3 +57,26 @@ In addition, **Kalinga Baby aims to help other new parents**, especially through
 - **Frontend:** React, TypeScript, Material UI  
 - **Backend:** Node.js, Express, TypeScript  
 - **Database:** MongoDB (Mongoose ODM)
+
+---
+## 📝 Lessons Learned
+
+### Avoid Bulk Imports from `@mui/icons-material`
+
+When using MUI icons, **do not import multiple icons in a single line** like this:
+
+```typescript
+// ❌ This causes high file reads and build failures on Windows:
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+Instead, use individual imports for better tree-shaking and performance:
+```
+Instead, use individual imports:
+```typescript
+// ✅ Recommended: tree-shaking friendly imports
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+```
+
+This prevents “EMFILE: too many open files” errors during vite build, especially on Windows machines with lower file descriptor limits. It also reduces build times and bundle size.
+
+---

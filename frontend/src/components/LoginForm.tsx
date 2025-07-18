@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Box, Alert, InputAdornment, IconButton } from '@mui/material';
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { loginSchema } from '../utils/validation';
 import axios from 'axios';
 
