@@ -1,9 +1,10 @@
 [build]
   base = "frontend"
-  command = "npm install --include=dev && tsc --version && npm list && npm run build"
-  publish = "frontend/dist"
+  publish = "dist"
+  command = "npm install --include=dev && npm run build"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+ 

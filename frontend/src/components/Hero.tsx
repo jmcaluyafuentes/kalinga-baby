@@ -4,8 +4,8 @@ const Hero = () => {
   return (
     <Box
       sx={{
-        height: '520px',
-        backgroundImage: 'url(/hero-photo.jpg)',
+        height: '500px',
+        backgroundImage: 'url(https://images.unsplash.com/photo-1532441390534-47546aae8483?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjV8fHBhcmVudGluZyUyMGFwcCUyMGJhY2tncm91bmR8ZW58MHwwfDB8fHww)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

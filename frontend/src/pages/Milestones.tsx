@@ -70,8 +70,8 @@ const MilestonesPage = () => {
 
       <Grid container spacing={3} mt={0}>
         {milestones.map(milestone => (
-          // @ts-expect-error list of available features
-          <Grid item xs={12} md={6} key={milestone.id}>
+          // @ts-expect-error no overload?
+          <Grid xs={12} md={6} key={milestone.id}>
             <MilestoneCard milestone={milestone} onEdit={handleEdit} />
           </Grid>
         ))}
