@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Paper, Typography, Box, Button } from '@mui/material';
+import { Container, Paper, Typography, Box, Button, IconButton, } from '@mui/material';
+import CloseIcon from "@mui/icons-material/Close";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import DateInput from '../components/DateInput';
@@ -65,6 +66,10 @@ const FoodTracker = () => {
     fetchAllEntries();
   }, [selectedDate]);
 
+  const handleClose = () => {
+    navigate('/');
+  }
+
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -97,7 +102,29 @@ const FoodTracker = () => {
                   px: 2,
                   marginTop: '-180px'
                 }}
-              >
+              > 
+                <IconButton
+                  aria-label="close"
+                  onClick={() => handleClose()}
+                  sx={{
+                    bgcolor: 'rgb(25, 118, 210)',
+                    border: '1px solid',
+                    borderColor: 'grey.300',
+                    '&:hover': {
+                      bgcolor: 'rgb(19, 99, 179)',
+                    },
+                    color: 'white',
+                    boxShadow: 2,
+                    width: 40,
+                    height: 40,
+                    alignSelf: 'flex-center',
+                    mr: 1,
+                    mt: 1,
+                    mb: 3
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
                 <Typography variant="h5" sx={{ textAlign: 'center' }}>
                   Please log in to access the Food Tracker
                 </Typography>
