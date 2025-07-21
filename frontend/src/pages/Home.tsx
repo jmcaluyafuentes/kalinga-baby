@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import axios from "axios";
 import Hero from "../components/Hero";
-import Features from "../components/Features";
+import Tools from "../components/Tools";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Features />
+      <Tools />
     </>
   );
 };

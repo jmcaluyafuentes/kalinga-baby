@@ -61,7 +61,7 @@ In addition, **Kalinga Baby aims to help other new parents**, especially through
 ---
 ## 📝 Lessons Learned
 
-### Avoid Bulk Imports from `@mui/icons-material`
+### 1. Avoid Bulk Imports from `@mui/icons-material`
 
 When using MUI icons, **do not import multiple icons in a single line** like this:
 
@@ -77,6 +77,20 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 ```
 
-This prevents “EMFILE: too many open files” errors during vite build, especially on Windows machines with lower file descriptor limits. It also reduces build times and bundle size.
+This prevents `EMFILE: too many open files` errors during vite build, especially on Windows machines with lower file descriptor limits. It also reduces build times and bundle size.
+
+---
+
+### 2. MongoDB Stores Dates in UTC by Default
+
+MongoDB stores all dates in UTC by default. When these dates are retrieved and rendered in a browser, they are automatically converted to the user's local timezone. This behavior can lead to unexpected shifts in date and time display.
+
+Best Practices:
+
+Always store and handle dates in UTC to maintain consistency across systems.
+
+Use date libraries such as date-fns or dayjs on the frontend to explicitly format and convert dates according to the desired timezone or display format.
+
+If the exact time is not critical, consider storing dates as strings (e.g., YYYY-MM-DD) to avoid timezone-related confusion.
 
 ---

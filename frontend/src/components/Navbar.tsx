@@ -23,7 +23,7 @@ import RegisterForm from "./RegisterForm";
 
 const navItems = [
   { label: "Home", path: "/" },
-  { label: "Food Tracker", path: "/food" },
+  { label: "Tools", path: "/tools" },
   { label: "About", path: "/about" },
 ];
 
@@ -92,6 +92,7 @@ const Navbar = () => {
                   component={Link}
                   to={item.path}
                   onClick={() => {
+                    navigate('/#footer');
                     setMenuOpen(false);
                   }}
                   sx={{

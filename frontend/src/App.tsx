@@ -13,6 +13,7 @@ import Appointments from './pages/Appointments';
 import TodoList from './pages/TodoList';
 import Tips from './pages/Tips';
 import Blog from './pages/Blog';
+import Tools from './components/Tools';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Box component="main" sx={{ flexGrow: 1, pt: '50px' }}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/tools" element={<Tools />} />
             <Route path="/food" element={<FoodTracker />} />
             <Route path="/food/:id/edit" element={<FoodEdit />} />
             <Route path="/sleeptracker" element={<SleepTracker />} />

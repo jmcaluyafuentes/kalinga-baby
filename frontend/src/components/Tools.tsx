@@ -74,12 +74,12 @@ const features = [
   },
 ];
 
-const Features = () => {
+const Tools = () => {
   return (
     <>
       <Container>
         <Typography variant="h5" sx={{ my: 5, mb: 3 }}>
-          Explore Features
+          Explore Tools
         </Typography>
         <Box
           sx={{
@@ -174,4 +174,4 @@ const Features = () => {
   );
 };
 
-export default Features;
+export default Tools;
