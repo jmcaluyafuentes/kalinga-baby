@@ -11,19 +11,11 @@ import {
   Snackbar,
   Alert
 } from '@mui/material';
-import axios from 'axios';
 import { Container } from '@mui/system';
+import axios from 'axios';
+import type { FoodEntry } from '../types/foodEntry';
 
 const apiUrl = import.meta.env.VITE_API_URL;
-
-interface FoodEntry {
-  _id: string;
-  food: string;
-  quantity: string;
-  time: string;
-  date: string;
-  notes?: string;
-}
 
 type Params = {
   id: string;

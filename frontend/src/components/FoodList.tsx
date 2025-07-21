@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
@@ -18,17 +19,9 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { useState } from "react";
+import type { FoodEntry } from "../types/foodEntry";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
-type FoodEntry = {
-  _id: string;
-  food: string;
-  quantity: string;
-  time: string;
-  notes?: string;
-};
+const apiUrl = import.meta.env.VITE_API_URL
 
 type FoodListProps = {
   entries: FoodEntry[];
