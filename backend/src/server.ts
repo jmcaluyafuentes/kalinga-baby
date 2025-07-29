@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import foodRoutes from './routes/foodRoutes';
 import authRoutes from './routes/authRoutes';
+import milestoneRoutes from './routes/milestoneRoutes';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.use('/api/foods', foodRoutes);
+app.use('/api/milestones', milestoneRoutes);
 
 mongoose.connect(process.env.MONGO_URI!)
   .then(async () => {

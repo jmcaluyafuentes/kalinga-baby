@@ -1,5 +1,3 @@
-/// <reference path="../@types/express/index.d.ts" />
-
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -31,6 +29,5 @@ export const authMiddleware = (
     next();
   } catch (err) {
     res.status(401).json({ message: 'Invalid token' });
-    return;
   }
 };

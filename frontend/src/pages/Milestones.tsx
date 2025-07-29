@@ -67,7 +67,6 @@ const MilestonesPage = () => {
         + Add Milestone
       </Button>
 
-
       <Grid container spacing={3} mt={0}>
         {milestones.map(milestone => (
           // @ts-expect-error no overload?
