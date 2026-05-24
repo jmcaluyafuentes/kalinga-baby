@@ -5,7 +5,7 @@ const Hero = () => {
     <Box
       sx={{
         height: '500px',
-        backgroundImage: 'url(https://images.unsplash.com/photo-1532441390534-47546aae8483?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjV8fHBhcmVudGluZyUyMGFwcCUyMGJhY2tncm91bmR8ZW58MHwwfDB8fHww)',
+        backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1684164600683-6ecb6c9c0eb7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fGJhYnklMjBpdGVtcyUyMHByaWNlfGVufDB8MHwwfHx8MA%3D%3D)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

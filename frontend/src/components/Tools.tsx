@@ -19,18 +19,25 @@ const features = [
       "https://plus.unsplash.com/premium_photo-1734028798334-002cbff207a3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
+    feature: "Milestones",
+    description: "Celebrate and record your baby's developmental milestones.",
+    path: "/milestones",
+    image:
+    "https://media.istockphoto.com/id/865900638/photo/cute-baby-sings-with-open-mouth-while-playing-with-wooden-blocks.webp?a=1&b=1&s=612x612&w=0&k=20&c=lNB17is7tJlW_QBpX6W5GBkyoQkLTnJ6K4hmb2LdB3o=",
+  },
+  {
+    feature: "Price Tracker",
+    description: "Track price of items for family budget.",
+    path: "/pricetracker",
+    image:
+    "https://plus.unsplash.com/premium_photo-1661295704956-89c1d655d7bc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YmFieSUyMGl0ZW1zJTIwcHJpY2V8ZW58MHwwfDB8fHww",
+  },
+  {
     feature: "Sleep Tracker",
     description: "Log your baby's naps and overnight sleep patterns.",
     path: "/sleeptracker",
     image:
       "https://plus.unsplash.com/premium_photo-1680089161834-f5c024421ec1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njl8fGJhYnklMjBzbGVlcHxlbnwwfHwwfHx8MA%3D%3D",
-  },
-  {
-    feature: "Milestones",
-    description: "Celebrate and record your baby's developmental milestones.",
-    path: "/milestones",
-    image:
-      "https://media.istockphoto.com/id/865900638/photo/cute-baby-sings-with-open-mouth-while-playing-with-wooden-blocks.webp?a=1&b=1&s=612x612&w=0&k=20&c=lNB17is7tJlW_QBpX6W5GBkyoQkLTnJ6K4hmb2LdB3o=",
   },
   {
     feature: "Baby Items",

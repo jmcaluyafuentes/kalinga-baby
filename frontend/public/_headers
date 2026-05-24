@@ -1,0 +1,4 @@
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Robots-Tag: index
+  Accept-Ranges: none

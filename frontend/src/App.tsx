@@ -14,6 +14,7 @@ import TodoList from './pages/TodoList';
 import Tips from './pages/Tips';
 import Blog from './pages/Blog';
 import Tools from './components/Tools';
+import PriceTracker from './pages/PriceTracker';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/tools" element={<Tools />} />
             <Route path="/food" element={<FoodTracker />} />
+            <Route path="/pricetracker" element={<PriceTracker />} />
             <Route path="/food/:id/edit" element={<FoodEdit />} />
             <Route path="/sleeptracker" element={<SleepTracker />} />
             <Route path="/milestones" element={<Milestones />} />
